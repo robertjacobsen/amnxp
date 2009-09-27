@@ -1,0 +1,8 @@
+## Interface: 30200
+## Title: Amnith's XP
+## Notes: Makes your XP go
+## Author: Amnith
+## Version: 1.0
+
+amnxp.lua
+
