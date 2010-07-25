@@ -8,9 +8,16 @@ end
 
 local xp = CreateFrame"Frame"
 xp:RegisterEvent"CHAT_MSG_WHISPER"
-xp:SetScript("OnEvent", function(self)
+xp:RegisterEvent"CHAT_MSG_BN_WHISPER"
+xp:SetScript("OnEvent", function(self, event, ...)
 	if arg1 == "xp" then
-		SendChatMessage(getXP(), "WHISPER", this.lang, arg2)
+		if event == "CHAT_MSG_WHISPER" then 
+			SendChatMessage(getXP(), whisper, this.lang, arg2)
+		else
+			local presenceID = BNet_GetPresenceID(arg2)
+			ChatEdit_SetLastTellTarget(arg2)
+			BNSendWhisper(presenceID, getXP())
+		end
 	end
 end)
 
