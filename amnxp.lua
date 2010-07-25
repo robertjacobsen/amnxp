@@ -6,6 +6,16 @@ local function Print(green, text)
 	ChatFrame1:AddMessage(string.format("|cff33ff99%s|r: %s", green, text))
 end
 
+local function SendBNetMessage(target, text) 
+	local presenceID = BNet_GetPresenceID(target)
+	if presenceID then
+		ChatEdit_SetLastTellTarget(target)
+		BNSendWhisper(presenceID, text)
+	else
+		Print(XP, "|cffff0000Error!|r No such name: " .. target)
+	end
+end
+
 local xp = CreateFrame"Frame"
 xp:RegisterEvent"CHAT_MSG_WHISPER"
 xp:RegisterEvent"CHAT_MSG_BN_WHISPER"
@@ -14,9 +24,7 @@ xp:SetScript("OnEvent", function(self, event, ...)
 		if event == "CHAT_MSG_WHISPER" then 
 			SendChatMessage(getXP(), whisper, this.lang, arg2)
 		else
-			local presenceID = BNet_GetPresenceID(arg2)
-			ChatEdit_SetLastTellTarget(arg2)
-			BNSendWhisper(presenceID, getXP())
+			SendBNetMessage(arg2, getXP())
 		end
 	end
 end)
@@ -30,6 +38,8 @@ SlashCmdList['EXP'] = function(arg1)
 		SendChatMessage(getXP(), "WHISPER", this.lang, string.sub(arg1, 9))
 	elseif(string.sub(arg1, 0, 7) == "channel") then 
 		SendChatMessage(getXP(), "CHANNEL", this.lang, string.sub(arg1, 9))
+	elseif(string.sub(arg1, 0, 4) == "bnet") then
+		SendBNetMessage(string.sub(arg1, 6), getXP())
 	elseif(arg1 == "help") then
 		Print("<nothing>", "Prints your current XP to ChatFrame1.")
 		Print("party", "Broadcasts your XP to the party")
