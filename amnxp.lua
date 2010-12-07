@@ -22,7 +22,7 @@ xp:RegisterEvent"CHAT_MSG_BN_WHISPER"
 xp:SetScript("OnEvent", function(self, event, ...)
 	if arg1 == "xp" then
 		if event == "CHAT_MSG_WHISPER" then 
-			SendChatMessage(getXP(), whisper, this.lang, arg2)
+			SendChatMessage(getXP(), whisper, nil, arg2)
 		else
 			SendBNetMessage(arg2, getXP())
 		end
@@ -31,13 +31,13 @@ end)
 
 SlashCmdList['EXP'] = function(arg1)
 	if(arg1 == "party") then
-		SendChatMessage(getXP(), "PARTY", this.lang)
+		SendChatMessage(getXP(), "PARTY", nil) 
 	elseif(arg1 == "guild") then 
-		SendChatMessage(getXP(), "GUILD", this.lang)
+		SendChatMessage(getXP(), "GUILD", nil)
 	elseif(string.sub(arg1, 0, 7) == "whisper") then
-		SendChatMessage(getXP(), "WHISPER", this.lang, string.sub(arg1, 9))
+		SendChatMessage(getXP(), "WHISPER", nil, string.sub(arg1, 9))
 	elseif(string.sub(arg1, 0, 7) == "channel") then 
-		SendChatMessage(getXP(), "CHANNEL", this.lang, string.sub(arg1, 9))
+		SendChatMessage(getXP(), "CHANNEL", nil, string.sub(arg1, 9))
 	elseif(string.sub(arg1, 0, 4) == "bnet") then
 		SendBNetMessage(string.sub(arg1, 6), getXP())
 	elseif(arg1 == "help") then

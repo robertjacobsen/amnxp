@@ -1,4 +1,4 @@
-## Interface: 30200
+## Interface: 40000
 ## Title: Amnith's XP
 ## Notes: Makes your XP go
 ## Author: Amnith
