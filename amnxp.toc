@@ -1,5 +1,5 @@
 ## Interface: 40000
-## Title: Amnith's XP
+## Title: Amnith's Experience Broadcaster 
 ## Notes: Makes your XP go
 ## Author: Amnith
 ## Version: 4.0
