@@ -18,14 +18,9 @@ end
 
 local xp = CreateFrame"Frame"
 xp:RegisterEvent"CHAT_MSG_WHISPER"
-xp:RegisterEvent"CHAT_MSG_BN_WHISPER"
-xp:SetScript("OnEvent", function(self, event, ...)
-	if arg1 == "xp" then
-		if event == "CHAT_MSG_WHISPER" then 
-			SendChatMessage(getXP(), whisper, nil, arg2)
-		else
-			SendBNetMessage(arg2, getXP())
-		end
+xp:SetScript("OnEvent", function(self, event, msg, from, ...)
+	if msg == "xp" then
+		SendChatMessage(getXP(), "WHISPER", nil, from)
 	end
 end)
 
@@ -38,8 +33,6 @@ SlashCmdList['EXP'] = function(arg1)
 		SendChatMessage(getXP(), "WHISPER", nil, string.sub(arg1, 9))
 	elseif(string.sub(arg1, 0, 7) == "channel") then 
 		SendChatMessage(getXP(), "CHANNEL", nil, string.sub(arg1, 9))
-	elseif(string.sub(arg1, 0, 4) == "bnet") then
-		SendBNetMessage(string.sub(arg1, 6), getXP())
 	elseif(arg1 == "help") then
 		Print("<nothing>", "Prints your current XP to ChatFrame1.")
 		Print("party", "Broadcasts your XP to the party")
